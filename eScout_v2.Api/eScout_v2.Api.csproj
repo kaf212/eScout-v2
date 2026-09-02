@@ -7,4 +7,8 @@
         <RootNamespace>eScout_v2</RootNamespace>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\eScout_v2.Application\eScout_v2.Application.csproj" />
+    </ItemGroup>
+
 </Project>
