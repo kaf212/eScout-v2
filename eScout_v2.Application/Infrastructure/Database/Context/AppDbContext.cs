@@ -14,5 +14,10 @@ public class AppDbContext(DbContextOptions<AppDbContext> options, IConfiguration
         {
             entity.ToTable("Activity", _schema);
         });
+
+        modelBuilder.Entity<Place>(entity =>
+        {
+            entity.ToTable("Place", _schema);
+        });
     }
 }

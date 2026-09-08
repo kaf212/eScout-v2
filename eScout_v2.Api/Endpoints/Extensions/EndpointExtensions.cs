@@ -33,6 +33,7 @@ public static class EndpointExtensions
     {
         RouteGroupBuilder group = app.MapGroup(ApiBaseRoute).WithTags("eScout API v1");
         group.MapActivityEndpoints();
+        group.MapPlaceEndpoints();
         return app;
     }
 }
