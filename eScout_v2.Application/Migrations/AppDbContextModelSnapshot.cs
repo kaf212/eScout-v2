@@ -68,7 +68,7 @@ namespace eScout_v2.Application.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Place");
+                    b.ToTable("Place", "escout");
                 });
 
             modelBuilder.Entity("eScout_v2.Application.Entities.Activity", b =>
