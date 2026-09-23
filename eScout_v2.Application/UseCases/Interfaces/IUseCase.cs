@@ -12,10 +12,10 @@ public interface IUseCase<TOutput>
 
 public interface IUseCaseVoid<in TInput> where TInput : class
 {
-    public ValueTask ExecuteAsync(TInput input, CancellationToken cancellationToken = default);
+    public Task ExecuteAsync(TInput input, CancellationToken cancellationToken = default);
 }
 
 public interface IUseCaseVoid
 {
-    public ValueTask ExecuteAsync(CancellationToken cancellationToken = default);
+    public Task ExecuteAsync(CancellationToken cancellationToken = default);
 }

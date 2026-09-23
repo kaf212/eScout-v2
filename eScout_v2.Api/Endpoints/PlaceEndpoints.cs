@@ -14,6 +14,7 @@ public static class PlaceEndpoints
         groupBuilder.MapGet(PlaceRoute, GetAllPlaces);
         groupBuilder.MapGet($"{PlaceRoute}/{{id:guid}}", GetPlace);
         groupBuilder.MapPost(PlaceRoute, CreatePlace);
+        groupBuilder.MapPut(PlaceRoute, UpdatePlace);
         return groupBuilder;
     }
 
@@ -41,5 +42,12 @@ public static class PlaceEndpoints
     {
         Guid id = await useCase.ExecuteAsync(input, cancellationToken);
         return Results.Created("agga", id);
+    }
+
+    private static async Task<IResult> UpdatePlace([FromBody] PlaceInput input,
+        [FromServices] IUseCaseVoid<PlaceInput> useCase, CancellationToken cancellationToken)
+    {
+        await useCase.ExecuteAsync(input, cancellationToken);
+        return Results.Created();
     }
 }

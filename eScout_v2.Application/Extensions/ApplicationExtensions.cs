@@ -23,6 +23,7 @@ public static class ApplicationExtensions
         builder.Services.AddScoped<IUseCase<IEnumerable<Place>>, GetAllPlacesUseCase>();
         builder.Services.AddScoped<IUseCase<Guid, Place>, GetPlaceUseCase>();
         builder.Services.AddScoped<IUseCase<PlaceInput, Guid>, CreatePlaceUseCase>();
+        builder.Services.AddScoped<IUseCaseVoid<PlaceInput>, UpdatePlaceUseCase>();
         return builder;
     }
 }
