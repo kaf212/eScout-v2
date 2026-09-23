@@ -1,4 +1,5 @@
 ﻿using eScout_v2.Application.Entities;
+using eScout_v2.Application.UseCases.Activity;
 using eScout_v2.Application.UseCases.Inputs;
 using eScout_v2.Application.UseCases.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -15,6 +16,7 @@ public static class ActivityEndpoints
         groupBuilder.MapGet($"{ActivityRoute}/{{id:guid}}", GetActivity);
         groupBuilder.MapPost(ActivityRoute, CreateActivity);
         groupBuilder.MapPut($"{ActivityRoute}/{{id:guid}}", UpdateActivity);
+        groupBuilder.MapDelete($"{ActivityRoute}/{{id:guid}}", DeleteActivity);
 
         return groupBuilder;
     }
@@ -47,5 +49,11 @@ public static class ActivityEndpoints
     {
         await useCase.ExecuteAsync(input with {Id = id}, cancellationToken);
         return Results.Created();
+    }
+    
+    private static async Task<IResult> DeleteActivity([FromRoute] Guid id, [FromKeyedServices(nameof(DeleteActivityUseCase))] IUseCaseVoid<Guid> useCase, CancellationToken cancellationToken)
+    {
+        await useCase.ExecuteAsync(id, cancellationToken);
+        return Results.Ok();
     }
 }
