@@ -14,6 +14,7 @@ public static class ActivityEndpoints
         groupBuilder.MapGet(ActivityRoute, GetAllActivities);
         groupBuilder.MapGet($"{ActivityRoute}/{{id:guid}}", GetActivity);
         groupBuilder.MapPost(ActivityRoute, CreateActivity);
+        groupBuilder.MapPut($"{ActivityRoute}/{{id:guid}}", UpdateActivity);
 
         return groupBuilder;
     }
@@ -39,5 +40,12 @@ public static class ActivityEndpoints
     {
         Guid id = await useCase.ExecuteAsync(input, cancellationToken);
         return Results.Created("agga", id);
+    }
+    
+    private static async Task<IResult> UpdateActivity([FromRoute] Guid id, [FromBody] ActivityInput input,
+        [FromServices] IUseCaseVoid<ActivityInput> useCase, CancellationToken cancellationToken)
+    {
+        await useCase.ExecuteAsync(input with {Id = id}, cancellationToken);
+        return Results.Created();
     }
 }

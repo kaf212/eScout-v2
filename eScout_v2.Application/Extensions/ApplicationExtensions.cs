@@ -19,6 +19,7 @@ public static class ApplicationExtensions
         builder.Services.AddScoped<IUseCase<IEnumerable<Activity>>, GetAllActivitiesUseCase>();
         builder.Services.AddScoped<IUseCase<Guid, Activity>, GetActivityUseCase>();
         builder.Services.AddScoped<IUseCase<ActivityInput, Guid>, CreateActivityUseCase>();
+        builder.Services.AddScoped<IUseCaseVoid<ActivityInput>, UpdateActivityUseCase>();
         
         // Place UseCases
         builder.Services.AddScoped<IUseCase<IEnumerable<Place>>, GetAllPlacesUseCase>();
