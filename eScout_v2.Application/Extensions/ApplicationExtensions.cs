@@ -1,0 +1,33 @@
+﻿using eScout_v2.Application.Entities;
+using eScout_v2.Application.UseCases.Activity;
+using eScout_v2.Application.UseCases.Extensions;
+using eScout_v2.Application.UseCases.Inputs;
+using eScout_v2.Application.UseCases.Interfaces;
+using eScout_v2.Application.UseCases.Place;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+
+namespace eScout_v2.Application.Extensions;
+
+public static class ApplicationExtensions
+{
+    public static WebApplicationBuilder AddApplicationExtensions(this WebApplicationBuilder builder)
+    {
+        // builder.Services.AddUseCases();
+        
+        // Activity UseCases
+        builder.Services.AddScoped<IUseCase<IEnumerable<Activity>>, GetAllActivitiesUseCase>();
+        builder.Services.AddScoped<IUseCase<Guid, Activity>, GetActivityUseCase>();
+        builder.Services.AddScoped<IUseCase<ActivityInput, Guid>, CreateActivityUseCase>();
+        builder.Services.AddScoped<IUseCaseVoid<ActivityInput>, UpdateActivityUseCase>();
+        builder.Services.AddKeyedScoped<IUseCaseVoid<Guid>, DeleteActivityUseCase>(nameof(DeleteActivityUseCase));
+
+        // Place UseCases
+        builder.Services.AddScoped<IUseCase<IEnumerable<Place>>, GetAllPlacesUseCase>();
+        builder.Services.AddScoped<IUseCase<Guid, Place>, GetPlaceUseCase>();
+        builder.Services.AddScoped<IUseCase<PlaceInput, Guid>, CreatePlaceUseCase>();
+        builder.Services.AddScoped<IUseCaseVoid<PlaceInput>, UpdatePlaceUseCase>();
+        builder.Services.AddKeyedScoped<IUseCaseVoid<Guid>, DeletePlaceUseCase>(nameof(DeletePlaceUseCase));
+        return builder;
+    }
+}

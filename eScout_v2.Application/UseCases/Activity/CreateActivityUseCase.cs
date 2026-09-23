@@ -1,0 +1,16 @@
+﻿using eScout_v2.Application.Persistence.Interfaces;
+using eScout_v2.Application.UseCases.Inputs;
+using eScout_v2.Application.UseCases.Interfaces;
+
+namespace eScout_v2.Application.UseCases.Activity;
+
+public class CreateActivityUseCase(IRepository<Entities.Activity> activityRepository) : IUseCase<ActivityInput, Guid>
+{
+    public async ValueTask<Guid> ExecuteAsync(ActivityInput input, CancellationToken cancellationToken = default)
+    {
+        Entities.Activity activity = await Entities.Activity.CreateFromInputAsync(input);
+        await activityRepository.CreateAsync(activity, cancellationToken);
+        await activityRepository.SaveChangesAsync(cancellationToken);
+        return activity.Id;
+    }
+}
