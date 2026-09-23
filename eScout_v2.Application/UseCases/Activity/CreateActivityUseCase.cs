@@ -1,7 +1,6 @@
 ﻿using eScout_v2.Application.Persistence.Interfaces;
 using eScout_v2.Application.UseCases.Inputs;
 using eScout_v2.Application.UseCases.Interfaces;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace eScout_v2.Application.UseCases.Activity;
 

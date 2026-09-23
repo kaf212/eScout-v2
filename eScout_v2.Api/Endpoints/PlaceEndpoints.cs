@@ -12,6 +12,7 @@ public static class PlaceEndpoints
     public static RouteGroupBuilder MapPlaceEndpoints(this RouteGroupBuilder groupBuilder)
     {
         groupBuilder.MapGet(PlaceRoute, GetAllPlaces);
+        groupBuilder.MapGet($"{PlaceRoute}/{{id:guid}}", GetPlace);
         groupBuilder.MapPost(PlaceRoute, CreatePlace);
         return groupBuilder;
     }
@@ -26,6 +27,13 @@ public static class PlaceEndpoints
         }
 
         return Results.Ok(places);
+    }
+    
+    private static async Task<IResult> GetPlace([FromRoute] Guid id, [FromServices] IUseCase<Guid, Place> useCase,
+        CancellationToken cancellationToken)
+    {
+        Place place = await useCase.ExecuteAsync(id, cancellationToken);
+        return Results.Ok(place);
     }
 
     private static async Task<IResult> CreatePlace([FromBody] PlaceInput input,
