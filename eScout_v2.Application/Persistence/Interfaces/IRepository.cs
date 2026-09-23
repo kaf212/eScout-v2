@@ -4,6 +4,8 @@ namespace eScout_v2.Application.Persistence.Interfaces;
 
 public interface IRepository<TEntity> where TEntity : class
 {
+    public IQueryable<TEntity> Queryable { get; set; }
+    
     public Task CreateAsync(TEntity entity, CancellationToken cancellationToken = default);
 
     public Task<TEntity?> GetAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default);
