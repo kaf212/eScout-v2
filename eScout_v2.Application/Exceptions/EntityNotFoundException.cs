@@ -2,10 +2,10 @@
 
 public class EntityNotFoundException<TEntity> : Exception
 {
-    public EntityNotFoundException() : base($"Could not find entity of type \"{nameof(TEntity)}\".") {}
+    public EntityNotFoundException() : base($"Could not find entity of type \"{typeof(TEntity).Name}\".") {}
 
     public EntityNotFoundException(Guid id) :
-        base($"Could not find entity of type \"{nameof(TEntity)}\" with ID {id}.") {}
+        base($"Could not find entity of type \"{typeof(TEntity).Name}\" with ID {id}.") {}
     
     public EntityNotFoundException(string message) : base(message) {}
 

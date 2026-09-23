@@ -2,5 +2,5 @@
 
 public class IdNullException<TEntity> : Exception 
 {
-    public IdNullException() : base($"Provided ID for entity of type \"{nameof(TEntity)}\" was null.") {}
+    public IdNullException() : base($"Provided ID for entity of type \"{typeof(TEntity).Name}\" was null.") {}
 }
