@@ -10,7 +10,7 @@ public interface IUseCase<TOutput>
     public ValueTask<TOutput> ExecuteAsync(CancellationToken cancellationToken = default);
 }
 
-public interface IUseCaseVoid<in TInput> where TInput : class
+public interface IUseCaseVoid<in TInput>
 {
     public Task ExecuteAsync(TInput input, CancellationToken cancellationToken = default);
 }

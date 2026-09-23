@@ -1,6 +1,7 @@
 ﻿using eScout_v2.Application.Entities;
 using eScout_v2.Application.UseCases.Inputs;
 using eScout_v2.Application.UseCases.Interfaces;
+using eScout_v2.Application.UseCases.Place;
 using Microsoft.AspNetCore.Mvc;
 
 namespace eScout_v2.Endpoints;
@@ -14,7 +15,8 @@ public static class PlaceEndpoints
         groupBuilder.MapGet(PlaceRoute, GetAllPlaces);
         groupBuilder.MapGet($"{PlaceRoute}/{{id:guid}}", GetPlace);
         groupBuilder.MapPost(PlaceRoute, CreatePlace);
-        groupBuilder.MapPut(PlaceRoute, UpdatePlace);
+        groupBuilder.MapPut($"{PlaceRoute}/{{id:guid}}", UpdatePlace);
+        groupBuilder.MapDelete($"{PlaceRoute}/{{id:guid}}", DeletePlace);
         return groupBuilder;
     }
 
@@ -44,10 +46,17 @@ public static class PlaceEndpoints
         return Results.Created("agga", id);
     }
 
-    private static async Task<IResult> UpdatePlace([FromBody] PlaceInput input,
+    private static async Task<IResult> UpdatePlace([FromRoute] Guid id, [FromBody] PlaceInput input,
         [FromServices] IUseCaseVoid<PlaceInput> useCase, CancellationToken cancellationToken)
     {
-        await useCase.ExecuteAsync(input, cancellationToken);
+        await useCase.ExecuteAsync(input with {Id = id}, cancellationToken);
+        return Results.Created();
+    }
+    
+    private static async Task<IResult> DeletePlace([FromRoute] Guid id,
+        [FromKeyedServices(nameof(DeletePlaceUseCase))] IUseCaseVoid<Guid> useCase, CancellationToken cancellationToken)
+    {
+        await useCase.ExecuteAsync(id, cancellationToken);
         return Results.Created();
     }
 }
