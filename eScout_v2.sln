@@ -2,7 +2,7 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eScout_v2.Api", "eScout_v2.Api\eScout_v2.Api.csproj", "{6FB6CDFC-1C5F-401C-AFD8-9D2F37BE327C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eScout_v2.Application", "eScout_v2.Application\eScout_v2.Application.csproj", "{B8D82192-1B27-4A52-B75B-85FB38A93D8B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eScout_v2.Application", "eScout_v2.Application\eScout_v2.Application.csproj", "{9117186B-6E31-4395-89CA-0D014F734073}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -14,9 +14,9 @@ Global
 		{6FB6CDFC-1C5F-401C-AFD8-9D2F37BE327C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6FB6CDFC-1C5F-401C-AFD8-9D2F37BE327C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6FB6CDFC-1C5F-401C-AFD8-9D2F37BE327C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B8D82192-1B27-4A52-B75B-85FB38A93D8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B8D82192-1B27-4A52-B75B-85FB38A93D8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B8D82192-1B27-4A52-B75B-85FB38A93D8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B8D82192-1B27-4A52-B75B-85FB38A93D8B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9117186B-6E31-4395-89CA-0D014F734073}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9117186B-6E31-4395-89CA-0D014F734073}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9117186B-6E31-4395-89CA-0D014F734073}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9117186B-6E31-4395-89CA-0D014F734073}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
