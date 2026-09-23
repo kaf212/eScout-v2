@@ -1,5 +1,4 @@
-﻿using System.Linq.Expressions;
-using eScout_v2.Application.Persistence.Interfaces;
+﻿using eScout_v2.Application.Persistence.Interfaces;
 using eScout_v2.Application.UseCases.Interfaces;
 
 namespace eScout_v2.Application.UseCases.Place;

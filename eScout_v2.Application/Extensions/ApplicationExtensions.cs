@@ -1,6 +1,6 @@
-﻿using eScout_v2.Application.Entities;
+﻿using System.Text.Json;
+using eScout_v2.Application.Entities;
 using eScout_v2.Application.UseCases.Activity;
-using eScout_v2.Application.UseCases.Extensions;
 using eScout_v2.Application.UseCases.Inputs;
 using eScout_v2.Application.UseCases.Interfaces;
 using eScout_v2.Application.UseCases.Place;
@@ -28,6 +28,13 @@ public static class ApplicationExtensions
         builder.Services.AddScoped<IUseCase<PlaceInput, Guid>, CreatePlaceUseCase>();
         builder.Services.AddScoped<IUseCaseVoid<PlaceInput>, UpdatePlaceUseCase>();
         builder.Services.AddKeyedScoped<IUseCaseVoid<Guid>, DeletePlaceUseCase>(nameof(DeletePlaceUseCase));
+        
+        builder.Services.AddSingleton(new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true,
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+        });
+        
         return builder;
     }
 }
