@@ -13,6 +13,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options, IConfiguration
         modelBuilder.Entity<Activity>(entity =>
         {
             entity.ToTable("Activity", _schema);
+            entity.Navigation(e => e.Place).AutoInclude();
         });
 
         modelBuilder.Entity<Place>(entity =>

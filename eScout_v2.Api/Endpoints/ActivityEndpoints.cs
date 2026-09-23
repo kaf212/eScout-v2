@@ -12,6 +12,7 @@ public static class ActivityEndpoints
     public static RouteGroupBuilder MapActivityEndpoints(this RouteGroupBuilder groupBuilder)
     {
         groupBuilder.MapGet(ActivityRoute, GetAllActivities);
+        groupBuilder.MapGet($"{ActivityRoute}/{{id:guid}}", GetActivity);
         groupBuilder.MapPost(ActivityRoute, CreateActivity);
 
         return groupBuilder;
@@ -24,6 +25,12 @@ public static class ActivityEndpoints
         {
             return Results.NoContent();
         }
+        return Results.Ok(activties);
+    }
+    
+    private static async Task<IResult> GetActivity([FromRoute] Guid id, [FromServices] IUseCase<Guid, Activity> useCase, CancellationToken cancellationToken)
+    {
+        Activity activties = await useCase.ExecuteAsync(id, cancellationToken);
         return Results.Ok(activties);
     }
 

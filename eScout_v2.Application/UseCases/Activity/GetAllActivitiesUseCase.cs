@@ -8,10 +8,6 @@ public class GetAllActivitiesUseCase(IRepository<Entities.Activity> activityRepo
 {
     public async ValueTask<IEnumerable<Entities.Activity>> ExecuteAsync(CancellationToken cancellationToken = default)
     {
-        IQueryable<Entities.Activity> queryable = activityRepository.Queryable;
-
-        return queryable
-            .Include(a => a.Place)
-            .AsEnumerable();
+        return await activityRepository.GetAllAsync(null, cancellationToken);
     }
 }
