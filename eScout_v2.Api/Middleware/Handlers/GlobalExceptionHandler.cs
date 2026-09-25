@@ -28,6 +28,7 @@ public static class ExceptionMiddlewareExtensions
 
                 HttpStatusCode code = exception switch
                 {
+                    BadHttpRequestException => HttpStatusCode.BadRequest,
                     ValidationException => HttpStatusCode.BadRequest,
                     UnauthorizedAccessException => HttpStatusCode.Unauthorized,
                     _ => HttpStatusCode.InternalServerError,

@@ -9,7 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder
     .AddInfrastructureExtensions()
-    .AddApplicationExtensions();
+    .AddApplicationExtensions()
+    .AddEndpointExtensions();
 
 builder.Services.AddPersistence<DbContext>();
 

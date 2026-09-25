@@ -2,6 +2,7 @@
 using eScout_v2.Application.UseCases.Inputs;
 using eScout_v2.Application.UseCases.Interfaces;
 using eScout_v2.Application.UseCases.Place;
+using eScout_v2.Endpoints.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace eScout_v2.Endpoints;
@@ -13,10 +14,19 @@ public static class PlaceEndpoints
     public static RouteGroupBuilder MapPlaceEndpoints(this RouteGroupBuilder groupBuilder)
     {
         groupBuilder.MapGet(PlaceRoute, GetAllPlaces);
+        
         groupBuilder.MapGet($"{PlaceRoute}/{{id:guid}}", GetPlace);
-        groupBuilder.MapPost(PlaceRoute, CreatePlace);
-        groupBuilder.MapPut($"{PlaceRoute}/{{id:guid}}", UpdatePlace);
+        
+        groupBuilder
+            .MapPost(PlaceRoute, CreatePlace)
+            .AddEndpointFilter<EndpointExtensions.ValidationFilter<PlaceInput>>();
+        
+        groupBuilder
+            .MapPut($"{PlaceRoute}/{{id:guid}}", UpdatePlace)
+            .AddEndpointFilter<EndpointExtensions.ValidationFilter<PlaceInput>>();
+        
         groupBuilder.MapDelete($"{PlaceRoute}/{{id:guid}}", DeletePlace);
+        
         return groupBuilder;
     }
 

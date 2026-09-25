@@ -1,4 +1,6 @@
-﻿namespace eScout_v2.Endpoints.Extensions;
+﻿using FluentValidation;
+
+namespace eScout_v2.Endpoints.Extensions;
 
 
 public static class EndpointExtensions
@@ -24,6 +26,7 @@ public static class EndpointExtensions
                         .AllowCredentials();
                 });
             });
+        builder.Services.AddValidatorsFromAssemblyContaining<Program>();
 
 
         return builder;
@@ -35,5 +38,38 @@ public static class EndpointExtensions
         group.MapActivityEndpoints();
         group.MapPlaceEndpoints();
         return app;
+    }
+
+    public class ValidationFilter<T> : IEndpointFilter
+    {
+        public async ValueTask<object?> InvokeAsync(
+            EndpointFilterInvocationContext context,
+            EndpointFilterDelegate next)    
+        {
+            var validator = context.HttpContext.RequestServices.GetService<IValidator<T>>();
+
+            if (validator is null)
+            {
+                return await next(context).ConfigureAwait(false);
+            }
+
+            var model = context.Arguments
+                .OfType<T>()
+                .FirstOrDefault();
+
+            if (model is null)
+            {
+                return Results.BadRequest("Invalid request payload.");
+            }
+
+            var validationResult = await validator.ValidateAsync(model).ConfigureAwait(false);
+
+            if (!validationResult.IsValid)
+            {
+                return Results.ValidationProblem(validationResult.ToDictionary());
+            }
+
+            return await next(context).ConfigureAwait(false);
+        }
     }
 }

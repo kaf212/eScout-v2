@@ -2,6 +2,7 @@
 using eScout_v2.Application.UseCases.Activity;
 using eScout_v2.Application.UseCases.Inputs;
 using eScout_v2.Application.UseCases.Interfaces;
+using eScout_v2.Endpoints.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace eScout_v2.Endpoints;
@@ -13,9 +14,17 @@ public static class ActivityEndpoints
     public static RouteGroupBuilder MapActivityEndpoints(this RouteGroupBuilder groupBuilder)
     {
         groupBuilder.MapGet(ActivityRoute, GetAllActivities);
+        
         groupBuilder.MapGet($"{ActivityRoute}/{{id:guid}}", GetActivity);
-        groupBuilder.MapPost(ActivityRoute, CreateActivity);
-        groupBuilder.MapPut($"{ActivityRoute}/{{id:guid}}", UpdateActivity);
+
+        groupBuilder
+            .MapPost(ActivityRoute, CreateActivity)
+            .AddEndpointFilter<EndpointExtensions.ValidationFilter<ActivityInput>>();
+            
+        groupBuilder
+            .MapPut($"{ActivityRoute}/{{id:guid}}", UpdateActivity)
+            .AddEndpointFilter<EndpointExtensions.ValidationFilter<ActivityInput>>();
+        
         groupBuilder.MapDelete($"{ActivityRoute}/{{id:guid}}", DeleteActivity);
 
         return groupBuilder;
