@@ -2,10 +2,14 @@
 using eScout_v2.Application.Persistence.Interfaces;
 using eScout_v2.Application.UseCases.Inputs;
 using eScout_v2.Application.UseCases.Interfaces;
+using Microsoft.Extensions.Logging;
 
 namespace eScout_v2.Application.UseCases.Place;
 
-public class UpdatePlaceUseCase(IRepository<Entities.Place> placeRepository) : IUseCaseVoid<PlaceInput>
+public class UpdatePlaceUseCase(
+    IRepository<Entities.Place> placeRepository,
+    ILogger<UpdatePlaceUseCase> logger
+    ) : IUseCaseVoid<PlaceInput>
 {
     public async Task ExecuteAsync(PlaceInput input, CancellationToken cancellationToken = default)
     {
@@ -13,5 +17,6 @@ public class UpdatePlaceUseCase(IRepository<Entities.Place> placeRepository) : I
         place.Update(input);
         placeRepository.Update(place);
         await placeRepository.SaveChangesAsync(cancellationToken);
+        logger.LogInformation("Successfully updated place with ID {id}.", input.Id);
     }
 }

@@ -2,7 +2,7 @@
 
 public interface IUseCase<in TInput, TOutput>
 {
-    public ValueTask<TOutput> ExecuteAsync(TInput input, CancellationToken cancellationToken = default);
+    public ValueTask<TOutput> ExecuteAsync(TInput id, CancellationToken cancellationToken = default);
 }
 
 public interface IUseCase<TOutput>
