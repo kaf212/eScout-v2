@@ -2,6 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Net;
 using System.Text.Json;
+using eScout_v2.Application.Exceptions;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 
@@ -31,6 +32,7 @@ public static class ExceptionMiddlewareExtensions
                     BadHttpRequestException => HttpStatusCode.BadRequest,
                     ValidationException => HttpStatusCode.BadRequest,
                     UnauthorizedAccessException => HttpStatusCode.Unauthorized,
+                    EntityNotFoundException => HttpStatusCode.NotFound,
                     _ => HttpStatusCode.InternalServerError,
                 };
 
